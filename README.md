@@ -6,7 +6,7 @@ Moreover, this example was initially set up to run using Replit.com
 Modificado por Davi Winther
 Modificado por Gabriela Sperto Evangelista
 Modificado por Pâmela Jaqueline Ribeiro dos Santos
-Modificado por Bruno Alves - 769771
+Modificado por Bruno Alves
 
 ## To run locally in your PC, you need Python installed and:
 
