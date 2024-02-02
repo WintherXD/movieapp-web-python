@@ -18,6 +18,17 @@ class MovieDao:
 
     return movies
 
+  def find(self, id):
+    conn = Database.get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT name, year FROM movie WHERE id = ?", (id, ))
+    result = cursor.fetchone()
+    movie = Movie(id, result[0], result[1])
+    cursor.close()
+    conn.close()
+
+    return movie
+
   def add(self, movie):
     conn = Database.get_connection()
     cursor = conn.cursor()
@@ -26,6 +37,19 @@ class MovieDao:
         movie.year,
     )
     cursor.execute("INSERT INTO movie (name, year) VALUES (?, ?);", new_movie)
+
+    # Commit the changes to the database
+    conn.commit()
+    # Close the cursor and connection
+    cursor.close()
+    conn.close()
+
+  def edit(self, movie):
+    conn = Database.get_connection()
+    cursor = conn.cursor()
+    edit_movie = (movie.name, movie.year, movie.id)
+    cursor.execute("UPDATE movie SET name = ?, year = ? WHERE id = ?;",
+                   edit_movie)
 
     # Commit the changes to the database
     conn.commit()

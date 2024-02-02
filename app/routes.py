@@ -57,6 +57,20 @@ def movie():
     return redirect(url_for('main.main'))
 
 
+@bp.route('/edit_movie', methods=['GET', 'POST'])
+@login_required
+def edit_movie():
+  if request.method == "GET":
+    movie = movieDAO.find(request.args.get('id'))
+    return render_template('edit_movie.html', movie=movie)
+  elif request.method == "POST":
+    movie = Movie(request.form['id_field'], request.form['moviename_field'],
+                  int(request.form['year_field']))
+    movieDAO.edit(movie)
+  flash('Filme modificado com sucesso')
+  return redirect(url_for('main.main'))
+
+
 @bp.route('/user', methods=['GET', 'POST'])
 @login_required
 def add_user():
