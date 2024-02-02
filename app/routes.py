@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user
 from app.model.user_dao import UserDao
+from app.model.user import User
 from app.model.movie_dao import MovieDao
 from app.model.movie import Movie
 
@@ -51,6 +52,20 @@ def movie():
     movie = Movie(None, request.form['moviename_field'],
                   int(request.form['year_field']))
     movieDAO.add(movie)
+    return redirect(url_for('main.main'))
+  else:
+    return redirect(url_for('main.main'))
+
+
+@bp.route('/user', methods=['GET', 'POST'])
+@login_required
+def add_user():
+  if request.method == "GET":
+    return render_template('user.html')
+  elif request.method == "POST":
+    user = User(request.form['username_field'], request.form['password_field'])
+    userDAO.add(user)
+    flash('Usuário criado com sucesso')
     return redirect(url_for('main.main'))
   else:
     return redirect(url_for('main.main'))
