@@ -5,6 +5,8 @@ Moreover, this example was initially set up to run using Replit.com
 
 ## To run locally in your PC, you need Python installed and:
 
+# Modificado por Davi Winther
+
 >> pip install poetry
 
 >> poetry install
